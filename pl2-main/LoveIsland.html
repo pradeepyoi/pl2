@@ -1,0 +1,87 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Love Island</title>
+<style>
+html, body, #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    }
+</style>
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.22/"></script>
+
+<script>
+require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/Graphic",
+    "esri/layers/GraphicsLayer"
+    ], function(esriConfig,Map, MapView, Graphic, GraphicsLayer) {
+
+esriConfig.apiKey = "AAPK7a696ae420e24a7aab437f6c4d5d599bhSDjgHgzPb3X_v0Eceu7gMCngdriBTf2hVbHlDrVOA6i69KJseCLejjXEXJhQQSH";
+
+const map = new Map({
+    basemap: "arcgis-midcentury" //Basemap layer service
+});
+
+const view = new MapView({
+    map: map,
+    center: [15.384653653876583, 43.97955689877162 ], //Longitude, latitude
+    zoom: 15,
+    container: "viewDiv"
+});
+
+const graphicsLayer = new GraphicsLayer();
+map.add(graphicsLayer);
+// Create a line geometry
+const polyline = {
+    type: "polyline",
+    paths: [
+              [15.378627777099608,43.9799384568323],
+              [15.380215644836424,43.979382593503935],
+              [15.385322570800783,43.97749879574561],
+              [15.386931896209715,43.97677305443229],
+              [15.386803150177002,43.97748335453344],
+              [15.386910438537598,43.97677305443229],
+              [15.386030673980711,43.97664952311256],
+           ]   
+    };
+const point = { //Create a point
+    type: "point",
+    longitude: 15.3846536538765831,
+    latitude:  43.97955689877162
+};
+
+
+const popupTemplate = {
+    title: "{Name}",
+    content: "{Description}"
+}
+
+const attributes = {
+    Name: "Galesnjak",
+    Description: "The Real Love Island!"
+}
+
+const polygonGraphic = new Graphic({
+    geometry: polygon,
+    symbol: simpleFillSymbol,
+    attributes: attributes,
+    popupTemplate: popupTemplate
+});
+
+graphicsLayer.add(polygonGraphic);
+
+});
+</script>
+</head>
+<body>
+    <div id="viewDiv"></div>
+</body>
+</html>
